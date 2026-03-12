@@ -1,0 +1,8 @@
+streamlit
+python-dotenv
+playwright
+beautifulsoup4
+requests
+pdfminer.six
+python-docx
+google-genai
