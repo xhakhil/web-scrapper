@@ -100,7 +100,7 @@ def scrape_alison():
 
     with sync_playwright() as p:
 
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
 
@@ -176,60 +176,6 @@ def scrape_alison():
 
 
 
-
-# def scrape_alison():
-
-#     content = []
-
-#     with sync_playwright() as p:
-
-#         browser = p.chromium.launch(headless=False)
-#         page = browser.new_page()
-
-#         page.goto("https://alison.com/login")
-
-#         page.fill('input[name="email"]', ALISON_EMAIL)
-#         page.fill('input[name="password"]', ALISON_PASSWORD)
-#         page.click("button[type='submit']")
-
-#         page.wait_for_load_state("domcontentloaded")
-
-#         current_url = COURSE_URL
-#         visited = set()
-
-#         while current_url:
-
-#             if current_url in visited:
-#                 break
-
-#             visited.add(current_url)
-
-#             print("Opening:", current_url)
-
-#             page.goto(current_url, wait_until="domcontentloaded")
-
-#             page.wait_for_selector(".angular-course-player", timeout=60000)
-
-#             html = page.content()
-
-#             text = clean_text(html)
-
-#             content.append(text)
-
-#             soup = BeautifulSoup(html, "html.parser")
-
-#             next_link = soup.select_one(".player-nav--top a")
-
-#             if next_link:
-#                 current_url = urljoin(current_url, next_link.get("href"))
-#             else:
-#                 break
-
-#         browser.close()
-
-#     return "\n\n".join(content)
-
-
 # -----------------------------
 # FLORENCE SCRAPER
 # -----------------------------
@@ -242,7 +188,7 @@ def scrape_florence():
 
     with sync_playwright() as p:
 
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
         )
