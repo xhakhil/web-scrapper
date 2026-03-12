@@ -196,15 +196,31 @@ def scrape_florence():
         page = context.new_page()
 
         # LOGIN
+        # page.goto("https://academy.florence.co.uk/login", wait_until="domcontentloaded")
+
+        # page.fill('input[type="email"]', FLORENCE_EMAIL)
+        # page.fill('input[type="password"]', FLORENCE_PASSWORD)
+
+        # page.click('button[type="submit"]')
+
+        # page.wait_for_load_state("domcontentloaded")
+        # time.sleep(3)
+
+        # LOGIN
         page.goto("https://academy.florence.co.uk/login", wait_until="domcontentloaded")
 
-        page.fill('input[type="email"]', FLORENCE_EMAIL)
-        page.fill('input[type="password"]', FLORENCE_PASSWORD)
+        page.wait_for_selector("input[type='email']", timeout=60000)
 
-        page.click('button[type="submit"]')
+        page.fill("input[type='email']", FLORENCE_EMAIL)
+        page.fill("input[type='password']", FLORENCE_PASSWORD)
 
-        page.wait_for_load_state("domcontentloaded")
-        time.sleep(3)
+        submit = page.locator("form button[type='submit']").first
+        submit.wait_for(state="visible", timeout=60000)
+
+        submit.click()
+
+        page.wait_for_load_state("networkidle")
+
 
         # OPEN COURSE
         page.goto(COURSE_URL, wait_until="domcontentloaded")
